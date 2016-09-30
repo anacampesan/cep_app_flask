@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from restless.fl import FlaskResource
 from restless.preparers import FieldsPreparer
 import requests
+import json
 
 # Flask app object
 app = Flask(__name__)
@@ -55,11 +56,11 @@ class CepResource(FlaskResource):
 
     # POST
     def create(self):
-        req = requests.get(POSTMON_URL, params=self.data['cep'])
-        print(req.text)
-        entry = Cep(req.text['cep'], req.text['logradouro'], req.text['bairro'], req.text['cidade'], req.text['estado'])
+        req = requests.get(POSTMON_URL+self.data['cep'])
+        req = json.loads(req.text)
+        entry = Cep(req['cep'], req['logradouro'], req['bairro'], req['cidade'], req['estado'])
         db.session.add(entry)
-        db.session.commit()
+        return db.session.commit()
 
     # DELETE
     def delete(self, pk):
@@ -68,4 +69,4 @@ class CepResource(FlaskResource):
         db.session.commit()
 
 # Restless URLs Routes
-CepResource.add_url_rules(app, rule_prefix='/cep/')
+CepResource.add_url_rules(app, rule_prefix='/zipcode/')

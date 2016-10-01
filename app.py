@@ -22,18 +22,18 @@ logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG)
 
 # CEP model
 class Zipcode(db.Model):
-    zip_code        = db.Column(db.String(10), primary_key=True)
-    address = db.Column(db.String(50))
-    neighbourhood     = db.Column(db.String(50))
-    city     = db.Column(db.String(50))
-    state     = db.Column(db.String(50))
+    zip_code      = db.Column(db.String(10), primary_key=True)
+    address       = db.Column(db.String(50))
+    neighbourhood = db.Column(db.String(50))
+    city          = db.Column(db.String(50))
+    state         = db.Column(db.String(50))
 
     def __init__(self, zip_code, address, neighbourhood, city, state):
-        self.zip_code        = zip_code
-        self.address = address
-        self.neighbourhood     = neighbourhood
-        self.city     = city
-        self.state     = state
+        self.zip_code      = zip_code
+        self.address       = address
+        self.neighbourhood = neighbourhood
+        self.city          = city
+        self.state         = state
 
     def __repr__(self):
         return '<CEP %r>' % self.zip_code
@@ -42,11 +42,11 @@ class Zipcode(db.Model):
 class ZipcodeResource(FlaskResource):
     # Fields to be exposed to the client
     preparer = FieldsPreparer(fields={
-        'zip_code'        : 'zip_code',
-        'address' : 'address',
-        'neighbourhood'     : 'neighbourhood',
-        'city'     : 'city',
-        'state'     : 'state'
+        'zip_code'     : 'zip_code',
+        'address'      : 'address',
+        'neighbourhood': 'neighbourhood',
+        'city'         : 'city',
+        'state'        : 'state'
     })
 
     # Lets the users make requests without authentication (auth not needed for this app)

@@ -79,3 +79,7 @@ INFO:werkzeug: * Debugger pin code: 804-049-372
 INFO:werkzeug:127.0.0.1 - - [01/Oct/2016 13:46:18] "GET /api/zipcode/14800210 HTTP/1.1" 301 -
 INFO:werkzeug:127.0.0.1 - - [01/Oct/2016 13:46:18] "GET /api/zipcode/14800210/ HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [01/Oct/2016 14:29:56] "GET /api/zipcode/ HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/anazard/Desktop/cep_app_flask/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger pin code: 804-049-372

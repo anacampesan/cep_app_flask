@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from restless.fl import FlaskResource
 from restless.preparers import FieldsPreparer
 import requests
+import logging
 import json
 
 # Flask app object
@@ -12,7 +13,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./cep_database.db'
 # DB object tied to app
 db = SQLAlchemy(app)
 
+# Postmon API GET url
 POSTMON_URL = 'http://api.postmon.com.br/v1/cep/'
+
+# Logging
+LOG_FILE = 'zipcode_app.log'
+logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG)
 
 # CEP model
 class Cep(db.Model):
@@ -53,13 +59,14 @@ class CepResource(FlaskResource):
 
     # GET specific
     def detail(self, pk):
-        return get_zipcode_entry(pk)
+        return get_entry(pk)
 
     # POST
+    # Makes a get request to Postmon and raises an error if the zipcode does not exist
     def create(self):
         req = requests.get(POSTMON_URL+self.data['cep'])
         if (req.status_code != 200):
-            raise(BaseException, 'Please provide a valid zipcode.')
+            raise ValueError('Please provide a valid zipcode.')
         req = json.loads(req.text)
         entry = Cep(req['cep'], req['logradouro'], req['bairro'], req['cidade'], req['estado'])
         db.session.add(entry)
@@ -67,12 +74,12 @@ class CepResource(FlaskResource):
 
     # DELETE
     def delete(self, pk):
-        db.session.delete(get_zipcode_entry(pk))
+        db.session.delete(get_entry(pk))
         db.session.commit()
 
 # Restless URLs Routes
 CepResource.add_url_rules(app, rule_prefix='/api/zipcode/')
 
-# Helper methods
-def get_zipcode_entry(zipcode):
-    return Cep.query.filter_by(cep=zipcode).first()
+# Helper method that grabs an instance from the database
+def get_entry(pk):
+    return Cep.query.filter_by(cep=pk).first()

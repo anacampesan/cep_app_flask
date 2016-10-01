@@ -1,0 +1,26 @@
+DEBUG:root:This message should go to the log file
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+DEBUG:root:This message should go to the log file
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger pin code: 804-049-372
+INFO:werkzeug: * Detected change in '/Users/anazard/Desktop/cep_app_flask/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Restarting with stat
+DEBUG:root:This message should go to the log file
+INFO:werkzeug:127.0.0.1 - - [01/Oct/2016 13:29:20] "GET /api/zipcode/ HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/anazard/Desktop/cep_app_flask/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+DEBUG:root:This message should go to the log file
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger pin code: 804-049-372
+INFO:werkzeug: * Detected change in '/Users/anazard/Desktop/cep_app_flask/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+DEBUG:root:This message should go to the log file
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger pin code: 804-049-372
+INFO:werkzeug: * Detected change in '/Users/anazard/Desktop/cep_app_flask/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger pin code: 804-049-372

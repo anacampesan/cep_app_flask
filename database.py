@@ -7,8 +7,3 @@ from app import db, Cep
 import requests
 
 db.create_all()
-
-req = requests.get('http://api.postmon.com.br/v1/cep/14800210')
-entry = Cep('14800210', 'Rua Pedro Alvares Cabral', 'Jardim Artico', 'Araraquara', 'Sao Paulo')
-db.session.add(entry)
-db.session.commit()

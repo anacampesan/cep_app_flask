@@ -34,6 +34,7 @@ class Cep(db.Model):
 
 # Restless CEP resource
 class CepResource(FlaskResource):
+    # Fields to be exposed to the client
     preparer = FieldsPreparer(fields={
         'cep'        : 'cep',
         'logradouro' : 'logradouro',
@@ -52,11 +53,13 @@ class CepResource(FlaskResource):
 
     # GET specific
     def detail(self, pk):
-        return Cep.query.filter_by(cep=pk).first()
+        return get_zipcode_entry(pk)
 
     # POST
     def create(self):
         req = requests.get(POSTMON_URL+self.data['cep'])
+        if (req.status_code != 200):
+            raise(BaseException, 'Please provide a valid zipcode.')
         req = json.loads(req.text)
         entry = Cep(req['cep'], req['logradouro'], req['bairro'], req['cidade'], req['estado'])
         db.session.add(entry)
@@ -64,9 +67,12 @@ class CepResource(FlaskResource):
 
     # DELETE
     def delete(self, pk):
-        entry = Cep.query.filter_by(cep=pk).first()
-        db.session.delete(entry)
+        db.session.delete(get_zipcode_entry(pk))
         db.session.commit()
 
 # Restless URLs Routes
-CepResource.add_url_rules(app, rule_prefix='/zipcode/')
+CepResource.add_url_rules(app, rule_prefix='/api/zipcode/')
+
+# Helper methods
+def get_zipcode_entry(zipcode):
+    return Cep.query.filter_by(cep=zipcode).first()
